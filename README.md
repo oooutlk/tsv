@@ -36,6 +36,7 @@ Under MIT.
 
   A cargo configuration file written in tsv format could look like the following table( with spaces replacing tabs ):
 
+  ```text
                                           deps
   package                         lib             value    
   name    version authors keyword macro   name    Version Path
@@ -43,6 +44,8 @@ Under MIT.
                           tab             trees           ~/trees
                           table
                           serde
+
+  ```
 
 See [serialization example](https://github.com/oooutlk/tsv/blob/master/tsv/src/ser.rs#L548) 
 and [deserialization example](https://github.com/oooutlk/tsv/blob/master/tsv/src/de.rs#L802).
