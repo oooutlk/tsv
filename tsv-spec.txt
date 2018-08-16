@@ -1,0 +1,63 @@
+Definition of tab-separated-values (tsv) as a method of serialization
+---------------------------------------------------------------------
+
+A tabular text format, named tsv, is possible for data serialization/deserialization. It extends the classic data interchange format of the same name tsv.
+
+This format encodes records in UTF-8 strings that are arranged by tab characters and newline characters to form a table.
+
+A field is a value of primitive types, such as integer or string. A record that has only one field is placed in one grid in the table. A record contains multiple records/fields is placed in a rectangle area in the table. Each record of the same type must have the same number of fields which must be determined before serialization/deserialization.
+
+A record containing multiple records/fields can be classified into one of the following three categories:
+
+1. A structure that names and packages together multiple related fields/records.
+  Fields in a record are placed in the same row and separated from each other by a tab character. 
+
+2. An enumeration that lists all its possible fields/records.
+  Fields in a record are placed in the same row and separated from each other by a tab character. Fields not matching the current value of the enumeration are encoded as empty strings.
+
+3. A sequence of records.
+  Elements in a sequence are placed in the same column(s) and adjacent elements are in adjacent rows. The end of a sequence is encoded as empty string(s).
+
+Note that tabs, newlines and back slashes that are contained in fields of string type are escaped respectively as ‘\t’, ‘\n’ and ‘\\’. A field that is an empty string is encoded as string "\".
+
+By default, a field that has only one possible value is encoded as '-' and a boolean true/false is encoded as 'O'/'X'. These can be overided by other strings before serialization/deserialization starts, but the altered string should not be empty nor contain tab, newline, back slash characters.
+
+The first several lines of this encoding is an optional area of column headers. It contains the names of named records/fields, separated by tabs. The names are placed the way respecting the following rules:
+
+1. A field's name must be placed above the field's value and in the same column.
+
+2. A record's name must be placed above names of all its fields/records, and in the same column that contains its first field.
+
+3. A record's name should be placed as close as possible to its values while respecting the rules listed above.
+
+If all records/fields are unnamed or column headers are opted out, a tsv file/string should contains no column headers and starts with tab seperated values directly.
+
+If the end of file has been reached during deserialzation, the deserializer should behaves as it was reading an empty string.
+
+Example
+=======
+
+<TAB><TAB><TAB><TAB><TAB>deps<TAB><TAB>
+package<TAB><TAB><TAB><TAB>lib<TAB><TAB>value<TAB>
+name<TAB>version<TAB>authors<TAB>keyword<TAB>macro<TAB>name<TAB>Version<TAB>Path
+tsv<TAB>0.1.0<TAB>oooutlk<TAB>tsv<TAB>X<TAB>serde<TAB>1.0<TAB>
+<TAB><TAB><TAB>tab<TAB><TAB>trees<TAB><TAB>~/trees
+<TAB><TAB><TAB>table<TAB><TAB><TAB><TAB>
+<TAB><TAB><TAB>serde
+<TAB><TAB><TAB>
+
+By replacing tabs with spaces, a human readable output could be generated to show how the table mentioned above looks like:
+
+                                        deps
+package                         lib             value    
+name    version authors keyword macro   name    Version Path
+tsv     0.1.0   oooutlk tsv     X       serde   1.0
+                        tab             trees           ~/trees
+                        table
+                        serde
+            
+
+
+Contact-Info:
+
+oooutlk <oooutlk&outlook.com>

@@ -1,0 +1,17 @@
+[package]
+name = "tsv"
+version = "0.1.0"
+authors = ["oooutlk <oooutlk@outlook.com>"]
+license = "MIT"
+keywords = [ "tsv", "serialization", "serde", "table", "csv" ]
+readme = "README.md"
+repository = "https://github.com/oooutlk/tsv"
+documentation = "https://docs.rs/tsv"
+description = "tsv (tab-seperated-values) data format for serde (serialization/deserialization)"
+
+[dependencies]
+serde = "1.0"
+serde_derive = "1.0"
+reflection = "0.1"
+reflection_derive = "0.1"
+trees = "0.1"

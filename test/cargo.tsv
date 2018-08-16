@@ -1,0 +1,8 @@
+					deps		
+package				lib		value	
+name	version	authors	keyword	macro	name	Version	Path
+tsv	0.1.0	oooutlk	tsv	X	serde	1.0	
+			tab		trees		~/trees
+			table				
+			serde
+			
