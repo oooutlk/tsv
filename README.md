@@ -47,5 +47,5 @@ Under MIT.
 
   ```
 
-See [serialization example](https://github.com/oooutlk/tsv/blob/master/tsv/src/ser.rs#L548) 
-and [deserialization example](https://github.com/oooutlk/tsv/blob/master/tsv/src/de.rs#L802).
+See [serialization example](https://github.com/oooutlk/tsv/blob/master/src/ser.rs#L546) 
+and [deserialization example](https://github.com/oooutlk/tsv/blob/master/src/de.rs#L804).
