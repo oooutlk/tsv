@@ -2,7 +2,7 @@
 
 use error::{Error, Result};
 use table::{Column, generate_columns, column_header};
-use trees::{TreeWalk, Visit};
+use trees::TreeWalk;
 use reflection::{Reflection, Schema, Member};
 use serde::ser::{self, Serialize};
 use std::ops::Range;
@@ -155,11 +155,11 @@ impl Serializer {
 
     #[cfg(test)]
     #[inline]
-    fn next_column( &mut self ) -> Option<Visit<Column>> { self.columns.next().map( |visit| { eprintln!( "next_column: {:?}", visit ); visit })}
+    fn next_column( &mut self ) { self.columns.next().map( |visit| { eprintln!( "next_column: {:?}", visit ); visit }); }
 
     #[cfg(not(test))]
     #[inline]
-    fn next_column( &mut self ) -> Option<Visit<Column>> { self.columns.next() }
+    fn next_column( &mut self ) { self.columns.forward() }
 
     #[cfg(test)]
     #[inline]

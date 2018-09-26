@@ -36,7 +36,7 @@ pub fn generate_columns( node: &Node<Member> ) -> Tree<Column> {
         if node.is_leaf() {
             tr( Column::new( node.data.clone(), start..start+1 ))
         } else {
-            let ( children, range ) = forest( node.children(), start );
+            let ( children, range ) = forest( node.iter(), start );
             tr( Column::new( node.data.clone(), range )) / children
         }
     }
@@ -62,7 +62,7 @@ pub fn column_header( columns: &Tree<Column> ) -> String {
      }
 
     fn readable_descendants( node: &Node<Column> ) -> ( Forest<&Column>, usize ) {
-        node.children().fold( (Forest::<&Column>::new(),0), |(forest,node_cnt), child|
+        node.iter().fold( (Forest::<&Column>::new(),0), |(forest,node_cnt), child|
             if is_readable( child.data.member.id() ) {
                 let sub_root = Tree::new( &child.data );
                 let ( sub_forest, sub_node_cnt ) = readable_descendants( child );
@@ -90,7 +90,7 @@ pub fn column_header( columns: &Tree<Column> ) -> String {
     loop {
         while i < j {
             let node = nodes[i].node;
-            for child in node.children() {
+            for child in node.iter() {
                 nodes[i].degree += 1;
                 nodes.push( ColNode{ next: k+1, parent: i, degree: 0, node: child });
                 k += 1;

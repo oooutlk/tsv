@@ -68,7 +68,7 @@ impl<'de> Deserializer<'de> {
     /// # Errors
     ///
     /// The construction can fail with wrong column headers or extra column(s) given.
-    pub fn make_deserializer( input: &'de str, schemata: Schema, env: &'de mut Env ) -> Result<Self> {
+    pub fn from_str( input: &'de str, schemata: Schema, env: &'de mut Env ) -> Result<Self> {
         let columns = generate_columns( schemata.root() );
         let width = columns.root().data.range.end;
         let mut headers = 0_usize;
@@ -134,11 +134,11 @@ impl<'de> Deserializer<'de> {
 
     #[cfg(test)]
     #[inline]
-    fn next_column( &mut self ) -> Option<Visit<Column>> { self.columns.next().map( |visit| { eprintln!( "next_column: {:?}", visit ); visit })}
+    fn next_column( &mut self ) { self.columns.next().map( |visit| { eprintln!( "next_column: {:?}", visit ); visit }); }
 
     #[cfg(not(test))]
     #[inline]
-    fn next_column( &mut self ) -> Option<Visit<Column>> { self.columns.next() }
+    fn next_column( &mut self ) { self.columns.forward() }
 
     #[cfg(test)]
     #[inline]
@@ -159,7 +159,7 @@ impl<'de> Deserializer<'de> {
 ///
 /// This conversion can fail for various reason. See `ErrorCode` definition in error.rs for details.
 pub fn from_str<'a, T:Deserialize<'a>>( s: &'a str, schemata: Schema, env: &'a mut Env ) -> Result<T> {
-    let de = Deserializer::make_deserializer( s, schemata, env );
+    let de = Deserializer::from_str( s, schemata, env );
     match de {
         Ok( mut de ) => T::deserialize( &mut de ),
         Err( error ) => Err( error ),
